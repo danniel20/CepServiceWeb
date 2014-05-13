@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	
+<h:head>
+	<title>Busca de Cep</title>
+</h:head>
+<h:body>
+	<p:dialog closable="false" draggable="false" header="Web Service Cep" maximizable="true" position="center" resizable="fasle" showEffect="slide" visible="true">
+		
+		<h:form id="formBusca">
+			<p:panelGrid id="pnCep" columns="3">
+				<h:outputText value="CEP: " />
+				<p:inputMask mask="99999-999" value="#{serviceBean.cep}" />
+
+				<p:commandButton value="Pesquisar" icon="ui-icon-search" action="#{serviceBean.encontraCep()}" update=":frmResultado"/>
+			</p:panelGrid>
+		</h:form>
+		
+		<h:form id="frmResultado">
+			<p:panelGrid id="pnResultado" columns="2">
+				<p:outputLabel value="UF: " style="font-weight:bold; padding-right: 5px; float: right;" />
+				<p:inputText size="5" value="#{serviceBean.estado}" readonly="true" />
+
+				<p:outputLabel value="Logradouro: " style="font-weight:bold; padding-right: 5px; float: right;" />
+				<p:inputText size="50" value="#{serviceBean.logradouro}" readonly="true" />
+
+				<p:outputLabel value="Cidade: " style="font-weight:bold; padding-right: 5px; float: right;" />
+				<p:inputText size="50" value="#{serviceBean.cidade}" readonly="true" />
+
+				<p:outputLabel value="Bairro: " style="font-weight:bold; padding-right: 5px; float: right;" />
+				<p:inputText size="50" value="#{serviceBean.bairro}" readonly="true" />
+			</p:panelGrid>
+		</h:form>
+		
+	</p:dialog>
+</h:body>
+</html>
