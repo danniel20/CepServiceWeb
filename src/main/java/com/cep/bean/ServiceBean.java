@@ -29,7 +29,7 @@ public class ServiceBean {
             setCidade(cws.getCidade());
             setBairro(cws.getBairro());
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Servidor não está respondendo", "Servidor não está respondendo"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cep não encontrado!", "Servidor não está respondendo"));
         }
     }
 

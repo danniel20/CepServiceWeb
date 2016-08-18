@@ -11,14 +11,16 @@
 	<h:outputStylesheet library="css" name="sistema.css"/>
 </h:head>
 <h:body>
-	<p:dialog closable="false" draggable="false" header="Web Service Cep" maximizable="true" position="center" resizable="fasle" showEffect="slide" visible="true">
+	<p:dialog id="cepDialog" closable="false" draggable="false" header="Web Service Cep" maximizable="true" position="center" resizable="fasle" showEffect="slide" visible="true">
+		
+		 <p:growl id="growl" showSummary="true" /> 
 		
 		<h:form id="formBusca">
 			<p:panelGrid id="pnCep" columns="3" >
 				<p:outputLabel id="cep"  value="CEP: " />
-				<p:inputMask  mask="99999-999" value="#{serviceBean.cep}" />
+				<p:inputMask  mask="99999-999" value="#{serviceBean.cep}"  required="true" requiredMessage="o campo cep é obrigatório"/>
 
-				<p:commandButton value="Pesquisar" icon="ui-icon-search" action="#{serviceBean.encontraCep()}" update=":panelResultado"/>
+				<p:commandButton id="btPesquisar" value="Pesquisar" icon="ui-icon-search" action="#{serviceBean.encontraCep()}" update=":panelResultado growl"/>
 			</p:panelGrid>
 		</h:form>
 		
@@ -38,5 +40,8 @@
 			</p:panelGrid>		
 		
 	</p:dialog>
+	
+	<p:blockUI block="cepDialog" trigger=":formBusca:btPesquisar" />
+	
 </h:body>
 </html>
