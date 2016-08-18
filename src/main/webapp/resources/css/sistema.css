@@ -1,0 +1,5 @@
+@charset "utf-8";
+
+.ui-panelgrid, .ui-panelgrid-cell, .ui-widget-content {
+	border: none !important;
+}
