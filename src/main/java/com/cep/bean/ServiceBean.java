@@ -20,17 +20,23 @@ public class ServiceBean {
     private String bairro;
 
     public void encontraCep() {
-        CepWebService cws = new CepWebService(getCep());
-
-        if (cws.getResultado() == 1) {
-            setTipoLogradouro(cws.getTipoLogradouro());
-            setLogradouro(cws.getLogradouro());
-            setEstado(cws.getEstado());
-            setCidade(cws.getCidade());
-            setBairro(cws.getBairro());
-        } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cep não encontrado!", "Servidor não está respondendo"));
-        }
+        
+		try {
+			CepWebService cws = new CepWebService(getCep());
+			
+			 if (cws.getResultado() == 1) {
+		            setTipoLogradouro(cws.getTipoLogradouro());
+		            setLogradouro(cws.getLogradouro());
+		            setEstado(cws.getEstado());
+		            setCidade(cws.getCidade());
+		            setBairro(cws.getBairro());
+		        } else {
+		            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cep não encontrado!", "Cep não encontrado!"));
+		        }
+			 
+		} catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Servidor não está respondendo!", "Servidor não está respondendo"));
+		}
     }
 
     public String getCep() {

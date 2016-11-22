@@ -18,19 +18,19 @@ public class CepWebService {
 
     private int resultado = 0;
 
-    public CepWebService(String cep) {
-
-        try {
+    public CepWebService(String cep) throws Exception {
+    	
             URL url = new URL("http://cep.republicavirtual.com.br/web_cep.php?cep=" + cep + "&formato=xml");
 
             Document document = getDocumento(url);
 
             Element root = document.getRootElement();
-
-            for (Iterator i = root.elementIterator(); i.hasNext();) {
-                Element element = (Element) i.next();
-
-                if (element.getQualifiedName().equals("uf")) {
+           
+            Iterator<Element> i = root.elementIterator();
+            
+            i.forEachRemaining( element -> {	
+            	
+            	if (element.getQualifiedName().equals("uf")) {
                     setEstado(element.getText());
                 }
                 if (element.getQualifiedName().equals("cidade")) {
@@ -48,11 +48,8 @@ public class CepWebService {
                 if (element.getQualifiedName().equals("resultado")) {
                     setResultado(Integer.parseInt(element.getText()));
                 }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            });
+    
     }
 
     public Document getDocumento(URL url) throws DocumentException {
